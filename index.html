@@ -1,95 +1,173 @@
 <!DOCTYPE html>
 <html lang="ar" dir="rtl">
+<link href="https://fonts.googleapis.com/css2?family=Readex+Pro:wght@400;600;700&display=swap" rel="stylesheet">
 
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
     <title>حاسبة البصمة الكربونية | Ecoryx Carbon Calculator</title>
     <style>
         body {
-            background: url('https://images.unsplash.com/photo-1501004318641-b39e6451bec6?auto=format&fit=crop&w=1500&q=80') no-repeat center center fixed;
-            background-size: cover;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            position: relative;
+            min-height: 100vh;
             margin: 0;
             padding: 0;
+            background-color: #F9F9FC;
+            font-family: 'Readex Pro', sans-serif;
             color: #2e7d32;
+            overflow-x: hidden;
+        }
+
+        body::before {
+            content: "";
+            position: fixed;
+            bottom: 0;
+            left: 0;
+            width: 25%;
+            height: 100vh;
+            background-image: url(https://ecoryx.com/wp-content/uploads/2024/01/image-13.webp);
+            background-repeat: no-repeat;
+            background-position: bottom left;
+            background-size: 100% auto;
+            opacity: 0.25;
+            pointer-events: none;
+            z-index: -1;
         }
 
         .header {
-            background-color: #FFF;
-            color: #434344;
-            padding: 35px 20px;
-            text-align: center;
-            position: relative;
+            background-color: transparent;
+            padding: 24px 32px;
             display: flex;
-            align-items: baseline;
-        }
-
-        h2 {
-            margin-block-end: 0;
+            justify-content: space-between;
+            align-items: center;
+            border-bottom: 1px solid #e0e0e0;
+            flex-wrap: wrap;
         }
 
         .logo {
-            position: absolute;
-            left: 20px;
-            top: 10px;
-            height: 90px;
+            height: 60px;
+            object-fit: contain;
+            flex-shrink: 0;
+        }
+
+        .title-container {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .title-container h2 {
+            margin: 0;
+            font-size: 1.6em;
+            font-weight: 700;
+            color: #2e7d32;
+            letter-spacing: -0.4px;
+        }
+
+        .title-container .subtitle {
+            margin-top: 4px;
+            font-size: 1em;
+            color: #666;
+            font-weight: 500;
+            margin-bottom: 0;
         }
 
         .container {
-            background: rgba(255, 255, 255, 0.95);
-            border-radius: 10px;
-            padding: 30px;
-            max-width: 900px;
-            margin: 40px auto;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
-            position: relative;
-            z-index: 2;
+            background: white;
+            border-radius: 12px;
+            border-color: #DDE2E5;
+            padding: 60px 40px;
+            max-width: 700px;
+            margin: 30px auto;
+            box-shadow: 0 0 15px rgba(207, 207, 207, 0.1);
+            animation: fadeInUp 0.6s ease;
         }
 
-        select,
-        input {
-            padding: 10px;
-            margin: 10px 0;
+
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(15px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transition: opacity 0.8s ease-in-out;
+        }
+
+        .fade-in.show {
+            opacity: 1;
+        }
+
+        label {
+            font-weight: 400;
+            margin-top: 15px;
+            display: block;
+            font-size: 16px;
+            color: #818181;
+        }
+
+        select {
+            padding: 8px 12px;
+            margin: 8px 0;
             width: 100%;
             border: 1px solid #ccc;
             border-radius: 5px;
-            font-size: 18px;
+            font-size: 15px;
+            font-family: 'Readex Pro', sans-serif;
+            appearance: none;
+            background-color: #fff;
+            direction: rtl;
+            padding-left: 36px;
+            background-image: url("data:image/svg+xml;charset=UTF-8,%3Csvg width='12' height='8' viewBox='0 0 12 8' fill='none' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath d='M1 1L6 6L11 1' stroke='%23818181' stroke-width='2'/%3E%3C/svg%3E");
+            background-repeat: no-repeat;
+            background-position: left 12px center;
+            background-size: 12px;
         }
 
-        select:after {
-            position: absolute;
-            content: "";
-            top: 14px;
-            right: 10px;
-            width: 0;
-            height: 0;
-            border: 6px solid transparent;
-            border-color: #fff transparent transparent transparent;
-        }
-
-        /*point the arrow upwards when the select box is open (active):*/
-        .select-selected.select-arrow-active:after {
-            border-color: transparent transparent #fff transparent;
-            top: 7px;
+        input[type="number"] {
+            box-sizing: border-box;
+            padding: 8px 12px;
+            margin: 8px 0;
+            width: 100%;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            font-size: 15px;
+            font-family: 'Readex Pro', sans-serif;
+            background-color: #fff;
+            direction: rtl;
+            background-image: none;
         }
 
         button {
-            padding: 12px 25px;
+            padding: 10px 16px;
             background-color: #43a047;
             color: white;
             border: none;
             border-radius: 5px;
-            font-size: 16px;
+            font-family: 'Readex Pro', sans-serif;
+            font-size: 15px;
             cursor: pointer;
             margin-top: 20px;
             width: 100%;
+            transition: background-color 0.3s ease, transform 0.2s ease;
         }
 
-        label {
-            font-weight: 600;
-            font-size: 1.4vw;
-            margin-top: 15px;
-            display: block;
+        button:hover {
+            background-color: #388e3c;
+            transform: translateY(-2px);
+        }
+
+        h2,
+        h3 {
+            margin-top: 0;
         }
 
         .result,
@@ -98,22 +176,92 @@
             margin-top: 20px;
             line-height: 1.8;
         }
+
+        @media (max-width: 768px) {
+            .header {
+                padding: 16px;
+                /* flex-direction: column; */
+                gap: 16px;
+                text-align: center;
+            }
+
+            .logo {
+                height: 60px;
+            }
+
+            .title-container h2 {
+                font-size: 1.4em;
+            }
+
+            .title-container .subtitle {
+                font-size: 0.95em;
+            }
+
+            .container {
+                padding: 20px 15px;
+                margin: 20px 10px;
+            }
+
+            label {
+                font-size: 12px;
+            }
+
+            select,
+            input,
+            button {
+                font-size: 15px;
+                padding: 10px;
+            }
+
+            .result,
+            .tips {
+                font-size: 1em;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .logo {
+                height: 50px;
+            }
+
+            .title-container h2 {
+                font-size: 1.2em;
+            }
+
+            .title-container .subtitle {
+                font-size: 0.9em;
+            }
+
+            .container {
+                padding: 15px 10px;
+                margin: 15px 8px;
+            }
+
+            button {
+                font-size: 14px;
+            }
+
+            .result,
+            .tips {
+                font-size: 0.95em;
+            }
+        }
     </style>
 </head>
 
 <body>
-
     <div class="header">
-        <div>
-            <img src="https://netorgft14783059-my.sharepoint.com/personal/hala_maimoni_ecoryx_com/Documents/Ecoryx_logo.png" alt="Ecoryx Logo" class="logo">
+        <div class="title-container">
+            <h2>حاسبة البصمة الكربونية</h2>
+            <p class="subtitle">Ecoryx Carbon Calculator</p>
         </div>
-        <div>
-            <h2>حاسبة البصمة الكربونية | Ecoryx Carbon Calculator</h2>
-        </div>
+        <img src="https://netorgft14783059-my.sharepoint.com/personal/hala_maimoni_ecoryx_com/Documents/Ecoryx_logo.png"
+            alt="Ecoryx Logo" class="logo">
+
     </div>
 
     <div class="container">
-        <label>مدينة السكن | City of Residence:</label>
+        <label>مدينة السكن | City of Residence</label>
         <select id="homeCity" onchange="checkCities()">
             <option value="الخبر">الخبر | Khobar</option>
             <option value="الدمام">الدمام | Dammam</option>
@@ -123,7 +271,7 @@
             <option value="سيهات">سيهات | Saihat</option>
         </select>
 
-        <label>مدينة العمل | City of Work:</label>
+        <label>مدينة العمل | City of Work</label>
         <select id="workCity" onchange="checkCities()">
             <option value="الخبر">الخبر | Khobar</option>
             <option value="الدمام">الدمام | Dammam</option>
@@ -134,11 +282,11 @@
         </select>
 
         <div id="kmInput" style="display:none;">
-            <label>المسافة اليومية كم | Daily Commute Distance (km):</label>
+            <label>المسافة اليومية كم | Daily Commute Distance (km)</label>
             <input type="number" id="dailyKM" placeholder="مثال: 25">
         </div>
 
-        <label>عدد المكيفات | No. of AC Units:</label>
+        <label>عدد المكيفات | No. of AC Units</label>
         <select id="acCount">
             <option value="1">1</option>
             <option value="2">2</option>
@@ -146,7 +294,7 @@
             <option value="4">4+</option>
         </select>
 
-        <label>عدد ساعات التشغيل | Hours per Day:</label>
+        <label>عدد ساعات التشغيل | Hours per Day</label>
         <select id="acHours">
             <option value="2">0-4</option>
             <option value="5">4-8</option>
@@ -154,21 +302,21 @@
             <option value="12">>12</option>
         </select>
 
-        <label>هل تطفئ الأجهزة غير المستخدمة؟ | Do you turn off unused devices?</label>
+        <label>هل تطفئ الأجهزة غير المستخدمة؟ | Do you turn off unused devices؟</label>
         <select id="powerSave">
             <option value="0.9">دائمًا | Always</option>
             <option value="0.95">أحيانًا | Sometimes</option>
             <option value="1">نادرًا | Rarely</option>
         </select>
 
-        <label>هل ترشد استهلاك المياه؟ | Do you conserve water?</label>
+        <label>هل ترشد استهلاك المياه؟ | Do you conserve water؟</label>
         <select id="waterSave">
             <option value="0.7">نعم | Yes</option>
             <option value="0.85">أحيانًا | Sometimes</option>
             <option value="1">لا | No</option>
         </select>
 
-        <label>هل تعيد التدوير؟ | Do you recycle?</label>
+        <label>هل تعيد التدوير؟ | Do you recycle؟</label>
         <select id="recycle">
             <option value="1">نعم | Yes</option>
             <option value="0.5">أحيانًا | Sometimes</option>
