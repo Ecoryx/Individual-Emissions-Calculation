@@ -263,8 +263,8 @@
     <div class="container">
         <label>مدينة السكن | City of Residence</label>
         <select id="homeCity" onchange="checkCities()">
-            <option value="الدمام">الدمام | Dammam</option>
             <option value="الخبر">الخبر | Khobar</option>
+            <option value="الدمام">الدمام | Dammam</option>
             <option value="الجبيل">الجبيل | Jubail</option>
             <option value="الأحساء">الأحساء | Ahsa</option>
             <option value="القطيف">القطيف | Qatif</option>
@@ -366,13 +366,15 @@
             let waste = 1 - recycle;
 
             let total = transport + energy + water + waste;
-
+            let totalTree = (total * 365) / 150;
+            console.log(total, "Total")
             document.getElementById("result").innerHTML =
                 "<h3>🌍 إجمالي البصمة الكربونية | Total CO₂ Footprint:</h3>" +
                 "<strong>" + total.toFixed(1) + " كجم CO₂</strong><br>" +
                 "🚗 المسافة اليومية: " + distance + " كم | Daily Distance: " + distance + " km<br>" +
                 "⛽ تعادل حرق: " + Math.round(total / 2.3) + " لتر وقود | Equivalent to burning: " + Math.round(total / 2.3) + " liters of fuel<br>" +
-                "🚙 تعادل قيادة: " + Math.round(total / 0.25) + " كم | Equivalent to driving: " + Math.round(total / 0.25) + " km";
+                "🚙 تعادل قيادة: " + Math.round(total / 0.25) + " كم | Equivalent to driving: " + Math.round(total / 0.25) + " km <br>" + 
+                "🌳 " + totalTree.toFixed(1) + " شجرة نحتاج نزرع لتعويض هذه الانبعاثات | Trees to offset these emissions.";
 
             document.getElementById("tips").innerHTML =
                 "<h3>💡 نصائح للتقليل | Tips to Reduce:</h3>" +
